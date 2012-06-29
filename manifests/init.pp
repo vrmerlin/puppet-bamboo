@@ -30,6 +30,9 @@ class bamboo (
     creates => "${installdir}/bamboo-${version}",
     cwd     => $installdir,
   } ->
+  file { "${bambooHome}":
+    ensure => directory,
+  } ->
   file { "${bambooDir}/webapp/WEB-INF/classes/bamboo-init.properties":
     content => "bamboo.home=${bambooHome}",
   } ->

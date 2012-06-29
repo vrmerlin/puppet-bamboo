@@ -34,7 +34,7 @@ class bamboo (
   } ->
   service { 'bamboo':
     ensure     => running,
-    enable     => true,
+    enable     => false, # service bamboo does not support chkconfig
     hasrestart => true,
     hasstatus  => true,
   }

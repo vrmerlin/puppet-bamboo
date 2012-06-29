@@ -15,9 +15,11 @@
 # [Remember: No empty lines between comments and class definition]
 class bamboo (
   $version = '4.1.2',
-  $installdir = '/usr/local'){
+  $installdir = '/usr/local',
+  $bambooHome){
 
   $srcdir = '/usr/local/src'
+  $bambooDir = "${installdir}/bamboo-${version}"
 
   wget::fetch { 'bamboo':
     source      => "http://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-${version}.tar.gz",
@@ -28,9 +30,12 @@ class bamboo (
     creates => "${installdir}/bamboo-${version}",
     cwd     => $installdir,
   } ->
+  file { "${bambooDir}/webapp/WEB-INF/classes/bamboo-init.properties":
+    content => "bamboo.home=${bambooHome}",
+  } ->
   file { '/etc/init.d/bamboo':
     ensure => link,
-    target => "${installdir}/bamboo-${version}/bamboo.sh",
+    target => "${bambooDir}/bamboo.sh",
   } ->
   service { 'bamboo':
     ensure     => running,

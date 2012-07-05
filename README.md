@@ -3,6 +3,12 @@ puppet-bamboo
 
 Simple Puppet module for Atlassian Bamboo
 
+* Downloads Bamboo tarball from Atlassian
+* Installs it into /usr/local by default
+* Configures Bamboo home
+* Starts the service running as 'bamboo' user by default
+* Allows simple upgrades by just changing the version
+
 Module requirements
 ===================
 

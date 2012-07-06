@@ -1,3 +1,5 @@
 /.project
 /pkg
 /metadata.json
+/.rvmrc
+/Gemfile.lock

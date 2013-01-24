@@ -8,10 +8,9 @@ class bamboo::proxy(
     file { '/tmp/augeas': ensure => directory }
   }
   file { "/tmp/augeas/bamboo": ensure => directory } ->
-  wget::fetch { "fetch-augeas-bamboo":
-    source => "https://raw.github.com/maestrodev/augeas/af585c7e29560306f23938b3ba15aa1104951f7f/lenses/properties.aug",
-    destination => "/tmp/augeas/bamboo/properties.aug",
-  } ->
+  file { "/tmp/augeas/bamboo/properties.aug":
+    source => "puppet://modules/bamboo/properties.aug"
+  }->
 
   # Adjust wrapper.conf
   augeas { "set-bamboo-proxy":

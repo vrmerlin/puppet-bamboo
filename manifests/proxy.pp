@@ -9,7 +9,7 @@ class bamboo::proxy(
   }
   file { "/tmp/augeas/bamboo": ensure => directory } ->
   file { "/tmp/augeas/bamboo/properties.aug":
-    source => "puppet://modules/bamboo/properties.aug"
+    source => "puppet:///modules/bamboo/properties.aug"
   }->
 
   # Adjust wrapper.conf

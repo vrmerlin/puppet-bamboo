@@ -14,7 +14,7 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class bamboo (
-  $version = '4.1.2',
+  $version = '4.4.0',
   $extension = 'tar.gz',
   $installdir = '/usr/local',
   $home = '/var/local/bamboo',

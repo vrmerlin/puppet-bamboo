@@ -12,7 +12,7 @@ Simple Puppet module for Atlassian Bamboo
 Module requirements
 ===================
 
-*  wget => https://github.com/maestrodev/puppet-wget
+*  wget => http://forge.puppetlabs.com/maestrodev/wget
 
 Usage
 =====
@@ -25,17 +25,28 @@ or
 
 ```
 class { 'bamboo':
-  version    => '4.1.2',
+  version    => '4.4.0',
   installdir => '/usr/local',
   home       => '/var/local/bamboo',
   user       => 'bamboo',
 }
 ```
 
+Changelog
+=========
+
+2.0.0
+-----
+Works with Bamboo 4.4+
+
+1.0.0
+-----
+Works with Bamboo up to 4.4
+
 Author
 ======
 
-[MaestroDev] (http://www.maestrodev.com) http://www.maestrodev.com  
+[MaestroDev](http://www.maestrodev.com) http://www.maestrodev.com
 Carlos Sanchez <csanchez@maestrodev.com>  
 2012-07-03
 

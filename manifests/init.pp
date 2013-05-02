@@ -42,9 +42,10 @@ class bamboo (
     destination => "${srcdir}/atlassian-bamboo-${version}.tar.gz",
   } ->
   exec { 'bamboo':
-    command => "tar zxvf ${srcdir}/atlassian-bamboo-${version}.tar.gz && chown -R ${user} Bamboo && mv Bamboo bamboo-${version}",
+    command => "tar zxvf ${srcdir}/atlassian-bamboo-${version}.tar.gz && mv atlassian-bamboo-${version} bamboo-${version} && chown -R ${user} bamboo-${version}",
     creates => "${installdir}/bamboo-${version}",
     cwd     => $installdir,
+    logoutput => "on_failure",
   } ->
   file { $home:
     ensure => directory,

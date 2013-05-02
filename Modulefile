@@ -1,0 +1,10 @@
+name    'maestrodev-bamboo'
+version '1.0.0'
+source 'http://github.com/maestrodev/puppet-activemq.git'
+author 'maestrodev'
+license 'Apache License, Version 2.0'
+summary 'Installation and configuration of Atlassian Bamboo'
+description 'Install Atlassian Bamboo and manage the service'
+project_page 'http://github.com/maestrodev/puppet-bamboo'
+
+dependency 'maestrodev/wget', '>=1.0.0'

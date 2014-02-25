@@ -14,15 +14,22 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class bamboo (
-  $version = '4.4.0',
-  $extension = 'tar.gz',
+  $version    = '5.4.1',
+  $extension  = 'tar.gz',
   $installdir = '/usr/local',
-  $home = '/var/local/bamboo',
-  $user = 'bamboo'){
+  $home       = '/var/local/bamboo',
+  $user       = 'bamboo',
+  $java_home  = '/usr/lib/jvm/java',
+) {
 
   $srcdir = '/usr/local/src'
   $dir = "${installdir}/bamboo-${version}"
 
+  $properties = $version ? {
+    /^(4|5\.0)/ => "${dir}/webapp/WEB-INF/classes/bamboo-init.properties",
+    default => "${dir}/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties",
+  }
+  
   File {
     owner  => $user,
     group  => $user,
@@ -40,37 +47,60 @@ class bamboo (
   wget::fetch { 'bamboo':
     source      => "http://www.atlassian.com/software/bamboo/downloads/binary/atlassian-bamboo-${version}.${extension}",
     destination => "${srcdir}/atlassian-bamboo-${version}.tar.gz",
-  } ->
+    before      => Exec['bamboo'],
+  }
+
   exec { 'bamboo':
-    command => "tar zxvf ${srcdir}/atlassian-bamboo-${version}.tar.gz && mv atlassian-bamboo-${version} bamboo-${version} && chown -R ${user} bamboo-${version}",
-    creates => "${installdir}/bamboo-${version}",
-    cwd     => $installdir,
-    logoutput => "on_failure",
+    command   => "tar zxvf ${srcdir}/atlassian-bamboo-${version}.tar.gz && mv atlassian-bamboo-${version} bamboo-${version} && chown -R ${user} bamboo-${version}",
+    path      => ["/usr/bin", "/bin"],
+    creates   => "${installdir}/bamboo-${version}",
+    cwd       => $installdir,
   } ->
-  file { $home:
-    ensure => directory,
-  } ->
-  file { "${home}/logs":
-    ensure => directory,
-  } ->
-  file { "${dir}/webapp/WEB-INF/classes/bamboo-init.properties":
+
+  file { $properties:
     content => "bamboo.home=${home}/data",
-  } ->
-  file { '/etc/init.d/bamboo':
-    ensure => link,
-    target => "${dir}/bamboo.sh",
-  } ~>
+    notify  => Service['bamboo'],
+  }
+
+  file { [ $home, "${home}/logs"]:
+    ensure => directory,
+    before => Service['bamboo'],
+  }
+
   file { '/etc/default/bamboo':
-    ensure  => present,
-    content => "RUN_AS_USER=${user}
-BAMBOO_PID=${home}/bamboo.pid
-BAMBOO_LOG_FILE=${home}/logs/bamboo.log",
-  } ~>
-  service { 'bamboo':
-    ensure     => running,
-    enable     => false, # service bamboo does not support chkconfig
-    hasrestart => true,
-    hasstatus  => true,
+    ensure   => present,
+    content  => template('bamboo/sysconfig-rhel.erb'),
+    notify   => Service['bamboo'],
+  }
+
+  case $version {
+    /^(4|5\.1)/: {
+      file { '/etc/init.d/bamboo':
+        ensure => link,
+        target => "${dir}/bamboo.sh",
+        before => Service['bamboo'],
+      }
+      service { 'bamboo':
+        ensure     => running,
+        enable     => false, # service bamboo does not support chkconfig
+        hasrestart => true,
+        hasstatus  => true,
+      }
+    }
+    default: {
+      file { '/etc/init.d/bamboo':
+        ensure   => file,
+        content  => template('bamboo/init-rhel.erb'),
+        mode     => '0655',
+        before   => Service['bamboo'],
+      }
+      service { 'bamboo':
+        ensure     => running,
+        enable     => true,
+        hasrestart => true,
+        hasstatus  => true,
+      }
+    }
   }
 
 }

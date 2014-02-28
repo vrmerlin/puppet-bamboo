@@ -25,12 +25,21 @@ case "$1" in
     /bin/su -m $USER -c "$BASE/bin/shutdown.sh &> /dev/null"
     echo "$APP stopped successfully"
     ;;
-   # Restart command
-   restart)
-        $0 stop
-        sleep 5
-        $0 start
-        ;;
+  # Restart command
+  restart)
+    $0 stop
+    sleep 5
+    $0 start
+    ;;
+  # Status command - there's no pid, this will do for now
+  status)
+    if ! netstat -alntp | grep 8085 | grep LISTEN | awk '{print $NF}' | grep java > /dev/null; then
+      echo "$APP is not running."
+      exit 3
+    else
+      echo "$APP is running"
+    fi
+    ;;
   *)
     echo "Usage: /etc/init.d/$APP {start|restart|stop}"
     exit 1

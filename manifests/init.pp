@@ -16,7 +16,7 @@
 class bamboo (
   $version            = '5.9.4',
   $extension          = 'tar.gz',
-  $installdir         = '/usr/local',
+  $installdir         = '/usr/local/bamboo',
   $homedir            = '/var/local/bamboo',
   $context_path       = '',
   $tomcat_port        = '8085',
@@ -39,7 +39,7 @@ class bamboo (
   $jvm_permgen        = '256m',
   $jvm_opts           = '',
   $jvm_optional       = '',
-  $download_url       = 'https://www.atlassian.com/software/bamboo/downloads/binary/',
+  $download_url       = 'https://www.atlassian.com/software/bamboo/downloads/binary',
   $service_lockfile   = $bamboo::params::service_lockfile,
   $manage_service     = true,
   $service_ensure     = 'running',

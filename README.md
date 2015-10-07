@@ -8,10 +8,14 @@ Simple Puppet module for Atlassian Bamboo
 * Manages a bamboo user, group, and home
 * Manages a service for Bamboo
 
+This is a fork of [maestrodev/bamboo](https://github.com/maestrodev/puppet-bamboo),
+which appears to be dormant.  It includes improvements from other authors as
+well, notably, [Simon Croomes](https://github.com/croomes/puppet-bamboo).
+
 ## Prerequisites
 
 * nanliu/staging: [http://forge.puppetlabs.com/nanliu/staging](http://forge.puppetlabs.com/nanliu/staging)
-* A Java installation (e.g. [puppetlabs/java](http://forge.puppetlabs.com/puppetlabs/java)
+* A Java installation (e.g. [puppetlabs/java](http://forge.puppetlabs.com/puppetlabs/java))
 
 ## Usage
 

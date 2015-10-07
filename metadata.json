@@ -1,0 +1,36 @@
+{
+  "name": "joshbeard-bamboo",
+  "version": "0.1.0",
+  "author": "joshbeard",
+  "summary": "Manages the installation of Atlassian Bamboo",
+  "license": "Apache-2.0",
+  "source": "https://github.com/joshbeard/puppet-bamboo",
+  "project_page": "https://github.com/joshbeard/puppet-bamboo",
+  "issues_url": "https://github.com/joshbeard/puppet-bamboo/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0"
+    },
+    {
+      "name": "nanliu-staging",
+      "version_requirement": ">= 1.0.3"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+      ]
+    }
+  ]
+}

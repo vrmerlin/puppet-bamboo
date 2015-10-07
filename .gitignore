@@ -1,8 +1,9 @@
-.idea
-.rvmrc
-.project
-.librarian/
-.tmp/
-pkg/
-doc/
-spec/fixtures/
+.*.sw?
+pkg
+spec/fixtures
+.rspec_system
+.vagrant
+.bundle
+.bundler
+vendor
+Gemfile.lock

@@ -1,51 +1,50 @@
-puppet-bamboo
-=============
+# puppet-bamboo
 
 Simple Puppet module for Atlassian Bamboo
 
-* Downloads Bamboo tarball from Atlassian
-* Installs it into /usr/local by default
-* Configures Bamboo home
-* Starts the service running as 'bamboo' user by default
-* Allows simple upgrades by just changing the version
+* Manages the download and installation of Bamboo
+* Manages some pre-installation configuration settings, such as Tomcat ports,
+  proxy configuration, Java options
+* Manages a bamboo user, group, and home
+* Manages a service for Bamboo
 
-Module requirements
-===================
+## Prerequisites
 
-*  staging => http://forge.puppetlabs.com/nanliu/staging
+* nanliu/staging: [http://forge.puppetlabs.com/nanliu/staging](http://forge.puppetlabs.com/nanliu/staging)
+* A Java installation (e.g. [puppetlabs/java](http://forge.puppetlabs.com/puppetlabs/java)
 
-Usage
-=====
+## Usage
+
+__With defaults__
 
 ```
 class { 'bamboo': }
 ```
 
-or
+__With some customization__
 
 ```
 class { 'bamboo':
-  version    => '4.4.0',
-  installdir => '/usr/local',
-  home       => '/var/local/bamboo',
-  user       => 'bamboo',
+  version      => '5.9.4',
+  installdir   => '/opt/bamboo',
+  home         => '/var/local/bamboo',
+  user         => 'bamboo',
+  java_home    => '/over/the/rainbow/java',
+  download_url => 'https://mirrors.example.com/atlassian/bamboo',
+  context_path => 'bamboo',
+  proxy        => {
+    scheme    => 'https',
+    proxyName => 'bamboo.example.com',
+    proxyPort => '443',
+  },
 }
 ```
 
-Changelog
-=========
+Refer to [manifests/init.pp](manifests/init.pp) for a list of parameters for
+now until this README is improved.
 
-2.0.0
------
-Works with Bamboo 4.4+
+## Authors and Contributors
 
-1.0.0
------
-Works with Bamboo up to 4.4
-
-Author
-======
-
-[MaestroDev](http://www.maestrodev.com) http://www.maestrodev.com
-Carlos Sanchez <csanchez@maestrodev.com>
-2012-07-03
+* Original module by [MaestroDev](http://www.maestrodev.com) (http://www.maestrodev.com)
+* Josh Beard (<josh@signalboxes.net>) [https://github.com/joshbeard](https://github.com/joshbeard)
+* Carlos Sanchez (<csanchez@maestrodev.com>)

@@ -8,11 +8,8 @@
 #
 # Requires:
 #
-#	Define['wget']
-#
 # Sample Usage:
 #
-# [Remember: No empty lines between comments and class definition]
 class bamboo (
   $version            = '5.9.4',
   $extension          = 'tar.gz',

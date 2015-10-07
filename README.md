@@ -17,13 +17,13 @@ Simple Puppet module for Atlassian Bamboo
 
 __With defaults__
 
-```
+```puppet
 class { 'bamboo': }
 ```
 
 __With some customization__
 
-```
+```puppet
 class { 'bamboo':
   version      => '5.9.4',
   installdir   => '/opt/bamboo',
@@ -45,6 +45,7 @@ now until this README is improved.
 
 ## Authors and Contributors
 
+* Refer to the [CONTRIBUTORS](CONTRIBUTORS) file.
 * Original module by [MaestroDev](http://www.maestrodev.com) (http://www.maestrodev.com)
 * Josh Beard (<josh@signalboxes.net>) [https://github.com/joshbeard](https://github.com/joshbeard)
 * Carlos Sanchez (<csanchez@maestrodev.com>)

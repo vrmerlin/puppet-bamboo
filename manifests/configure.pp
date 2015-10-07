@@ -27,12 +27,7 @@ class bamboo::configure (
     content => template('bamboo/setenv.sh.erb'),
   }
 
-  $properties = $version ? {
-    /^(4|5\.0)/ => "${app_dir}/webapp/WEB-INF/classes/bamboo-init.properties",
-    default => "${app_dir}/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties",
-  }
-
-  file { $properties:
+  file { "${app_dir}/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties":
     ensure  => 'file',
     owner   => $user,
     group   => $group,

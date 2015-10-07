@@ -45,12 +45,6 @@ task :default => [
   :spec,
 ]
 
-## Why not
-task :future do |args|
-  PuppetSyntax.future_parser = true
-  Rake::Task[:syntax].invoke
-end
-
 desc "Populate CONTRIBUTORS file"
 task :contributors do
     system("git log --format='%aN, %aE' | sort -u > CONTRIBUTORS")

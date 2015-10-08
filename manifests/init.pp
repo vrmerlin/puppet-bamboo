@@ -37,12 +37,12 @@ class bamboo (
   $jvm_opts           = '',
   $jvm_optional       = '',
   $download_url       = 'https://www.atlassian.com/software/bamboo/downloads/binary',
-  $service_lockfile   = $bamboo::params::service_lockfile,
   $manage_service     = true,
   $service_ensure     = 'running',
   $service_enable     = true,
   $service_file       = $bamboo::params::service_file,
   $service_template   = $bamboo::params::service_template,
+  $shutdown_wait      = '20',
 ) inherits bamboo::params {
 
   $app_dir = "${installdir}/atlassian-bamboo-${version}"

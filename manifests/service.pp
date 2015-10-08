@@ -9,7 +9,7 @@ class bamboo::service (
   $service_enable   = $bamboo::service_enable,
   $service_file     = $bamboo::service_file,
   $service_template = $bamboo::service_template,
-  $service_lockfile = $bamboo::service_lockfile,
+  $shutdown_wait    = $bamboo::shutdown_wait,
 ) {
 
   file { $service_file:

@@ -40,16 +40,18 @@ function stop() {
     echo -n $"Stopping down $SERVICE: "
     /bin/su -s $SHELL -m $USER -c "<%= @app_dir %>/bin/stop-bamboo.sh"
 
+    echo -n "Waiting ${SHUTDOWN_WAIT} seconds for processes to exit "
     let kwait=$SHUTDOWN_WAIT
     count=0;
     until [ `ps -p $pid | grep -c $pid` = '0' ] || [ $count -gt $kwait ]; do
-      echo "Waiting for processes to exit"
       sleep 1
       let count=$count+1
+      echo -n "${count}.."
     done
+    echo
 
     if [ $count -gt $kwait ]; then
-      echo "Stopping ${SERVICE} was unsuccessful after ${SHUTDOWN_WAIT} seconds"
+      echo "Stopping ${SERVICE} was unsuccessful after ${SHUTDOWN_WAIT} seconds; killing"
       terminate
     fi
   else
@@ -77,7 +79,7 @@ function start() {
 function status() {
   pid=$(bamboo_pid)
   if [ -n "${pid}" ]; then
-    echo "${SERVICE} is running with pid ${bamboo_pid}"
+    echo "${SERVICE} is running with pid ${pid}"
   else
     echo "${SERVICE} is not running"
     exit 1

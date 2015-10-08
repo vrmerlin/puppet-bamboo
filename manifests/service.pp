@@ -2,6 +2,7 @@ class bamboo::service (
   $version          = $bamboo::version,
   $app_dir          = $bamboo::app_dir,
   $user             = $bamboo::user,
+  $shell            = $bamboo::shell,
   $java_home        = $bamboo::java_home,
   $manage_service   = $bamboo::manage_service,
   $service_ensure   = $bamboo::service_ensure,

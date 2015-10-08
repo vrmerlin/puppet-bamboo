@@ -28,6 +28,8 @@
 ### END INIT INFO
 ACTION=$1
 SERVICE=bamboo
+USER=<%= @user %>
+SHELL=<%= @shell %>
 lockfile=<%= @service_lockfile %>
 export JAVA_HOME=<%= @java_home %>
 export CATALINA_HOME=<%= @app_dir %>
@@ -40,7 +42,7 @@ function restart() {
 
 function stop() {
   echo -n $"Shutting down $SERVICE: "
-  <%= @app_dir %>/bin/stop-bamboo.sh
+  /bin/su -s $SHELL -m $USER -c "<%= @app_dir %>/bin/stop-bamboo.sh"
   RETVAL=$?
   echo
 
@@ -51,7 +53,7 @@ function stop() {
 
 function start() {
   echo -n $"Starting $SERVICE: "
-  <%= @app_dir %>/bin/start-bamboo.sh
+  /bin/su -s $SHELL -m $USER -c "<%= @app_dir %>/bin/start-bamboo.sh"
   RETVAL=$?
   echo
 

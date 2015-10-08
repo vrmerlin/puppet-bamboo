@@ -1,3 +1,12 @@
+## 2015-10-08 - Release 3.1.0
+
+### Summary
+
+- Improvements to init script
+  - Better status and stop handling - check process table and wait for
+    process shutdown
+  - Remove lockfile - check process table
+
 ## 2015-10-07 - Release 3.0.0
 
 ### Summary

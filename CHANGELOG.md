@@ -1,3 +1,11 @@
+## 2015-10-09 - Release 3.1.1
+
+### Summary
+
+- Documentation added
+- Expanded unit testing
+- Manage home directory even if user isn't managed
+
 ## 2015-10-08 - Release 3.1.0
 
 ### Summary

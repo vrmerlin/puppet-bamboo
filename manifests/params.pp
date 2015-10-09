@@ -14,6 +14,9 @@ class bamboo::params {
         fail("${::osfamily} ${::operatingsystemmajrelease} not supported.")
       }
     }
+    'Windows': {
+      fail('bamboo module is not supported on Windows')
+    }
     default: {
       $service_file     = '/etc/init.d/bamboo'
       $service_template = 'bamboo/bamboo.init.erb'

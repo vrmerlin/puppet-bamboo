@@ -51,6 +51,13 @@ class bamboo::install (
     group  => $group,
   }
 
+  file { $homedir:
+    ensure => 'directory',
+    owner  => $user,
+    group  => $group,
+    mode   => '0750',
+  }
+
   staging::file { $file:
     source  => "${download_url}/${file}",
     timeout => '1800',

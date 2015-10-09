@@ -404,6 +404,14 @@ declare these directly.
 If you've used this module on other platforms, please submit a pull request
 to add it to this list.
 
+### Bamboo Configuration
+
+This module does not manage the initial setup of Bamboo - the steps that are
+done via the web interface once installed and running.  This doesn't _appear_
+to be easily managed automatically.  This includes database configuration and
+the license.  Ultimately, this configuration is placed in
+`${homedir}/bamboo-cfg.xml`.  Contributions are welcome to help manage this.
+
 ## Development
 
 Please feel free to raise any issues here for bug fixes. We also welcome

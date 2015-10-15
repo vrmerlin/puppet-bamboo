@@ -77,7 +77,7 @@ class bamboo (
   validate_bool($service_enable)
   validate_absolute_path($service_file)
 
-  validate_re($service_template, '^(\w+)\/([\.\w\s]+)$',
+  validate_re($service_template, '^(\w+)\/([\/\.\w\s]+)$',
     'service_template should be modulename/path/to/template.erb'
   )
 

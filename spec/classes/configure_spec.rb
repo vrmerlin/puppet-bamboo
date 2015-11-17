@@ -6,39 +6,39 @@ describe 'bamboo' do
     context "bamboo::configure class without any parameters" do
       let(:params) {{ }}
 
-      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.4/bin/setenv.sh').with(
+      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.7/bin/setenv.sh').with(
           'owner'   => 'bamboo',
           'group'   => 'bamboo',
           'content' => /^BAMBOO_HOME="\/var\/local\/bamboo"$/,
         )
       }
 
-      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.4/bin/setenv.sh').with(
+      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.7/bin/setenv.sh').with(
           'content' => /^JVM_SUPPORT_RECOMMENDED_ARGS=""$/
         )
       }
 
-      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.4/bin/setenv.sh').with(
+      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.7/bin/setenv.sh').with(
           'content' => /^JVM_MINIMUM_MEMORY="256m"$/
         )
       }
 
-      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.4/bin/setenv.sh').with(
+      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.7/bin/setenv.sh').with(
           'content' => /^JVM_MAXIMUM_MEMORY="1024m"$/
         )
       }
 
-      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.4/bin/setenv.sh').with(
+      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.7/bin/setenv.sh').with(
           'content' => /^JAVA_OPTS=" -Xms\${JVM_MINIMUM_MEMORY}.*"/
         )
       }
 
-      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.4/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties').with(
+      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.7/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties').with(
           'content' => /^bamboo\.home=\/var\/local\/bamboo$/
         )
       }
 
-      it { is_expected.to contain_augeas('/usr/local/bamboo/atlassian-bamboo-5.9.4/conf/server.xml').with(
+      it { is_expected.to contain_augeas('/usr/local/bamboo/atlassian-bamboo-5.9.7/conf/server.xml').with(
           'changes' => [
             "set Server/Service[#attribute/name='Catalina']/Engine/Host/Context/#attribute/path ''",
             "set Server/Service/Connector/#attribute/maxThreads '150'",
@@ -58,7 +58,7 @@ describe 'bamboo' do
         }
       end
 
-      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.4/bin/setenv.sh').with(
+      it { is_expected.to contain_file('/usr/local/bamboo/atlassian-bamboo-5.9.7/bin/setenv.sh').with(
           'content' => /^JAVA_OPTS="-Foo -Bar -Xms\${JVM_MINIMUM_MEMORY}.*"/
         )
       }
@@ -78,7 +78,7 @@ describe 'bamboo' do
           },
         }
       end
-      it { is_expected.to contain_augeas('/usr/local/bamboo/atlassian-bamboo-5.9.4/conf/server.xml').with(
+      it { is_expected.to contain_augeas('/usr/local/bamboo/atlassian-bamboo-5.9.7/conf/server.xml').with(
           'changes' => [
             "set Server/Service[#attribute/name='Catalina']/Engine/Host/Context/#attribute/path ''",
             "set Server/Service/Connector/#attribute/maxThreads '256'",

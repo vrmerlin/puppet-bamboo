@@ -13,7 +13,7 @@ describe 'bamboo' do
       end
 
       it { is_expected.to contain_file('/etc/init.d/bamboo').with(
-          'content' => /^export CATALINA_HOME=\/usr\/local\/bamboo\/atlassian-bamboo-5\.9\.4$/
+          'content' => /^export CATALINA_HOME=\/usr\/local\/bamboo\/atlassian-bamboo-5\.9\.7$/
         )
       }
       it { is_expected.to contain_service('bamboo').with(
@@ -32,7 +32,7 @@ describe 'bamboo' do
       end
 
       it { is_expected.to contain_file('/usr/lib/systemd/system/bamboo.service').with(
-          'content' => /^PIDFile=\/usr\/local\/bamboo\/atlassian-bamboo-5\.9\.4\/work\/catalina\.pid$/
+          'content' => /^PIDFile=\/usr\/local\/bamboo\/atlassian-bamboo-5\.9\.7\/work\/catalina\.pid$/
         )
       }
       it { is_expected.to contain_service('bamboo').with(

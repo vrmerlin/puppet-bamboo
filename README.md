@@ -65,7 +65,7 @@ The `bamboo` class serves as a single "point of entry" for the module.
 
 ```puppet
 class { 'bamboo':
-  version      => '5.9.4',
+  version      => '5.9.7',
   installdir   => '/opt/bamboo',
   home         => '/var/local/bamboo',
   user         => 'bamboo',
@@ -158,7 +158,7 @@ class { 'bamboo':
 
 ##### `version`
 
-Default: '5.9.4'
+Default: '5.9.7'
 
 The version of Bamboo to download and install.  Should be in a MAJOR.MINOR.PATH
 format.
@@ -178,8 +178,8 @@ Default: '/usr/local/bamboo'
 
 The base directory for extracting/installing Bamboo to.  Note that it will
 decompress _inside_ this directory to a directory such as
-`atlassian-bamboo-5.9.4/`  So an `installdir` of `/usr/local/bamboo` will
-ultimately install Bamboo to `/usr/local/bamboo/atlassian-bamboo-5.9.4/`
+`atlassian-bamboo-5.9.7/`  So an `installdir` of `/usr/local/bamboo` will
+ultimately install Bamboo to `/usr/local/bamboo/atlassian-bamboo-5.9.7/`
 
 Note that the `installdir` is managed by this module.
 

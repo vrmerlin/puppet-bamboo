@@ -5,7 +5,7 @@
 # Refer to the README at the root of this module for documentation
 #
 class bamboo (
-  $version            = '5.9.4',
+  $version            = '5.9.7',
   $extension          = 'tar.gz',
   $installdir         = '/usr/local/bamboo',
   $homedir            = '/var/local/bamboo',

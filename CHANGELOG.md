@@ -1,3 +1,10 @@
+## 2015-11-17 - Release 3.1.2
+
+### Summary
+
+- Bump default Bamboo version to 5.9.7 from 5.9.4 (@tarrantmarshall PR #3)
+- Specify catalina pid file in setenv.sh (@tarrantmarshall PR #3)
+
 ## 2015-10-09 - Release 3.1.1
 
 ### Summary

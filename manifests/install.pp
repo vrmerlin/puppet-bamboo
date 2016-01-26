@@ -39,10 +39,12 @@ class bamboo::install (
     }
   }
 
-  file { $installdir:
-    ensure => 'directory',
-    owner  => $user,
-    group  => $group,
+  if ! defined (File[$installdir]) {
+    file { $installdir:
+      ensure => 'directory',
+      owner  => $user,
+      group  => $group,
+    }
   }
 
   file { $app_dir:

@@ -1,18 +1,20 @@
 class bamboo::install (
-  $user         = $bamboo::user,
-  $group        = $bamboo::group,
-  $uid          = $bamboo::uid,
-  $gid          = $bamboo::gid,
-  $password     = $bamboo::password,
-  $homedir      = $bamboo::homedir,
-  $shell        = $bamboo::shell,
-  $download_url = $bamboo::download_url,
-  $installdir   = $bamboo::installdir,
-  $version      = $bamboo::version,
-  $app_dir      = $bamboo::app_dir,
-  $extension    = $bamboo::extension,
-  $manage_user  = $bamboo::manage_user,
-  $manage_group = $bamboo::manage_group,
+  $user               = $bamboo::user,
+  $group              = $bamboo::group,
+  $uid                = $bamboo::uid,
+  $gid                = $bamboo::gid,
+  $password           = $bamboo::password,
+  $homedir            = $bamboo::homedir,
+  $shell              = $bamboo::shell,
+  $download_url       = $bamboo::download_url,
+  $installdir         = $bamboo::installdir,
+  $version            = $bamboo::version,
+  $app_dir            = $bamboo::app_dir,
+  $extension          = $bamboo::extension,
+  $manage_user        = $bamboo::manage_user,
+  $manage_group       = $bamboo::manage_group,
+  $manage_installdir  = $bamboo::manage_installdir,
+  $manage_appdir      = $bamboo::manage_appdir,
 ) {
 
   $file    = "atlassian-bamboo-${version}.${extension}"
@@ -39,7 +41,7 @@ class bamboo::install (
     }
   }
 
-  if ! defined (File[$installdir]) {
+  if $manage_installdir {
     file { $installdir:
       ensure => 'directory',
       owner  => $user,
@@ -47,10 +49,12 @@ class bamboo::install (
     }
   }
 
-  file { $app_dir:
-    ensure => 'directory',
-    owner  => $user,
-    group  => $group,
+  if $manage_appdir {
+    file { $app_dir:
+      ensure => 'directory',
+      owner  => $user,
+      group  => $group,
+    }
   }
 
   file { $homedir:

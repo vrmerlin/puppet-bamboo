@@ -179,9 +179,34 @@ Default: '/usr/local/bamboo'
 The base directory for extracting/installing Bamboo to.  Note that it will
 decompress _inside_ this directory to a directory such as
 `atlassian-bamboo-5.9.7/`  So an `installdir` of `/usr/local/bamboo` will
-ultimately install Bamboo to `/usr/local/bamboo/atlassian-bamboo-5.9.7/`
+ultimately install Bamboo to `/usr/local/bamboo/atlassian-bamboo-5.9.7/` by
+default.
 
-Note that the `installdir` is managed by this module.
+Refer to `manage_installdir` and `appdir`
+
+##### `manage_installdir`
+
+Default: `true`
+
+Boolean.  Whether this module should be responsible for managing the
+`installdir`
+
+##### `appdir`
+
+Default: `${installdir}/atlassian-bamboo-${version}`
+
+This is the directory that Bamboo gets extracted to within the 'installdir'
+
+By default, this is a subdirectory with the specific version appended to it.
+
+You might want to customize this if you don't want to use the default
+`atlassian-bamboo-${version}` convention.
+
+##### `manage_appdir`
+
+Default: `true`
+
+Boolean.  Whether this module should be responsible for managing the `appdir`
 
 ##### `homedir`
 

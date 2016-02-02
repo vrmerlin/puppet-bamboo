@@ -87,11 +87,11 @@ class bamboo (
   validate_integer($shutdown_wait)
 
   if $appdir == undef or $appdir == '' {
-    $app_dir = "${installdir}/atlassian-bamboo-${version}"
+    $real_appdir = "${installdir}/atlassian-bamboo-${version}"
   }
   else {
-    validate_string($app_dir)
-    $app_dir = $app_dir
+    validate_absolute_path($appdir)
+    $real_appdir = $appdir
   }
 
   anchor { 'bamboo::start': } ->

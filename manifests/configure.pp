@@ -1,6 +1,6 @@
 class bamboo::configure (
   $version            = $bamboo::version,
-  $app_dir            = $bamboo::app_dir,
+  $appdir             = $bamboo::real_appdir,
   $homedir            = $bamboo::homedir,
   $user               = $bamboo::user,
   $group              = $bamboo::group,
@@ -19,7 +19,7 @@ class bamboo::configure (
   $accept_count       = $bamboo::accept_count,
 ) {
 
-  file { "${app_dir}/bin/setenv.sh":
+  file { "${appdir}/bin/setenv.sh":
     ensure  => 'file',
     owner   => $user,
     group   => $group,
@@ -27,7 +27,7 @@ class bamboo::configure (
     content => template('bamboo/setenv.sh.erb'),
   }
 
-  file { "${app_dir}/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties":
+  file { "${appdir}/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties":
     ensure  => 'file',
     owner   => $user,
     group   => $group,
@@ -52,9 +52,9 @@ class bamboo::configure (
     $_changes = $changes
   }
 
-  augeas { "${app_dir}/conf/server.xml":
+  augeas { "${appdir}/conf/server.xml":
     lens    => 'Xml.lns',
-    incl    => "${app_dir}/conf/server.xml",
+    incl    => "${appdir}/conf/server.xml",
     changes => $_changes,
   }
 

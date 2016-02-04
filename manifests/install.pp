@@ -1,18 +1,20 @@
 class bamboo::install (
-  $user         = $bamboo::user,
-  $group        = $bamboo::group,
-  $uid          = $bamboo::uid,
-  $gid          = $bamboo::gid,
-  $password     = $bamboo::password,
-  $homedir      = $bamboo::homedir,
-  $shell        = $bamboo::shell,
-  $download_url = $bamboo::download_url,
-  $installdir   = $bamboo::installdir,
-  $version      = $bamboo::version,
-  $app_dir      = $bamboo::app_dir,
-  $extension    = $bamboo::extension,
-  $manage_user  = $bamboo::manage_user,
-  $manage_group = $bamboo::manage_group,
+  $user               = $bamboo::user,
+  $group              = $bamboo::group,
+  $uid                = $bamboo::uid,
+  $gid                = $bamboo::gid,
+  $password           = $bamboo::password,
+  $homedir            = $bamboo::homedir,
+  $shell              = $bamboo::shell,
+  $download_url       = $bamboo::download_url,
+  $installdir         = $bamboo::installdir,
+  $version            = $bamboo::version,
+  $appdir             = $bamboo::real_appdir,
+  $extension          = $bamboo::extension,
+  $manage_user        = $bamboo::manage_user,
+  $manage_group       = $bamboo::manage_group,
+  $manage_installdir  = $bamboo::manage_installdir,
+  $manage_appdir      = $bamboo::manage_appdir,
 ) {
 
   $file    = "atlassian-bamboo-${version}.${extension}"
@@ -39,16 +41,21 @@ class bamboo::install (
     }
   }
 
-  file { $installdir:
-    ensure => 'directory',
-    owner  => $user,
-    group  => $group,
+  if $manage_installdir {
+    file { $installdir:
+      ensure => 'directory',
+      owner  => $user,
+      group  => $group,
+    }
   }
 
-  file { $app_dir:
-    ensure => 'directory',
-    owner  => $user,
-    group  => $group,
+  if $manage_appdir {
+    file { $appdir:
+      ensure => 'directory',
+      owner  => $user,
+      group  => $group,
+      before => Staging::File[$file],
+    }
   }
 
   file { $homedir:
@@ -61,12 +68,11 @@ class bamboo::install (
   staging::file { $file:
     source  => "${download_url}/${file}",
     timeout => '1800',
-    require => File[$app_dir],
   }
 
   staging::extract { $file:
-    target  => $app_dir,
-    creates => "${app_dir}/conf",
+    target  => $appdir,
+    creates => "${appdir}/conf",
     strip   => 1,
     user    => $user,
     group   => $group,
@@ -79,9 +85,9 @@ class bamboo::install (
     group  => $group,
   }
 
-  exec { "chown_${app_dir}":
-    command => "chown -R ${user}:${group} ${app_dir}",
-    unless  => "find ${app_dir} ! -type l \\( ! -user ${user} \\) -o \\( ! -group ${group} \\) | wc -l | awk '{print \$1}' | grep -qE '^0'",
+  exec { "chown_${appdir}":
+    command => "chown -R ${user}:${group} ${appdir}",
+    unless  => "find ${appdir} ! -type l \\( ! -user ${user} \\) -o \\( ! -group ${group} \\) | wc -l | awk '{print \$1}' | grep -qE '^0'",
     path    => '/bin:/usr/bin',
   }
 

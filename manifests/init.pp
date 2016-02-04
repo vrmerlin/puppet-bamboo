@@ -7,7 +7,10 @@
 class bamboo (
   $version            = '5.9.7',
   $extension          = 'tar.gz',
+  $manage_installdir  = true,
   $installdir         = '/usr/local/bamboo',
+  $manage_appdir      = true,
+  $appdir             = undef,
   $homedir            = '/var/local/bamboo',
   $context_path       = '',
   $tomcat_port        = '8085',
@@ -83,7 +86,13 @@ class bamboo (
 
   validate_integer($shutdown_wait)
 
-  $app_dir = "${installdir}/atlassian-bamboo-${version}"
+  if $appdir == undef or $appdir == '' {
+    $real_appdir = "${installdir}/atlassian-bamboo-${version}"
+  }
+  else {
+    validate_absolute_path($appdir)
+    $real_appdir = $appdir
+  }
 
   anchor { 'bamboo::start': } ->
   class { 'bamboo::install': } ->

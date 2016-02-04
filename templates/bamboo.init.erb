@@ -16,7 +16,7 @@ SERVICE=bamboo
 USER=<%= @user %>
 SHELL=<%= @shell %>
 export JAVA_HOME=<%= @java_home %>
-export CATALINA_HOME=<%= @app_dir %>
+export CATALINA_HOME=<%= @appdir %>
 SHUTDOWN_WAIT=<%= @shutdown_wait %>
 
 
@@ -38,7 +38,7 @@ function stop() {
   pid=$(bamboo_pid)
   if [ -n "$pid" ]; then
     echo -n $"Stopping down $SERVICE: "
-    /bin/su -s $SHELL -m $USER -c "<%= @app_dir %>/bin/stop-bamboo.sh"
+    /bin/su -s $SHELL -m $USER -c "<%= @appdir %>/bin/stop-bamboo.sh"
 
     echo -n "Waiting ${SHUTDOWN_WAIT} seconds for processes to exit "
     let kwait=$SHUTDOWN_WAIT
@@ -69,7 +69,7 @@ function start() {
     exit 1
   else
     echo -n $"Starting $SERVICE: "
-    /bin/su -s $SHELL -m $USER -c "<%= @app_dir %>/bin/start-bamboo.sh"
+    /bin/su -s $SHELL -m $USER -c "<%= @appdir %>/bin/start-bamboo.sh"
     RETVAL=$?
     echo
     return $RETVAL

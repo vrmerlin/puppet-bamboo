@@ -1,3 +1,11 @@
+## 2016-02-xx - Release 3.2.0
+
+### Summary
+
+- Provide param to disable managing the 'installdir' (@Etherdaemon PR #4)
+- Provide param to disable managing the 'appdir' (@Etherdaemon PR #4)
+- Provide param to specify a custom 'appdir' (@Etherdaemon PR #4)
+
 ## 2015-11-17 - Release 3.1.2
 
 ### Summary

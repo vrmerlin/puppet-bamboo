@@ -42,7 +42,7 @@ class bamboo (
   $shutdown_wait      = '20',
 ) inherits bamboo::params {
 
-  validate_re($version, '^\d+\.\d+.\d+$')
+  validate_re($version, ['^\d+\.\d+\.\d+$', '^\d+\.\d+\.\d+\.\d+$'])
   validate_re($extension, '^(tar\.gz|\.zip)$')
   validate_absolute_path($installdir)
   validate_absolute_path($homedir)

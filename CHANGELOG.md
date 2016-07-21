@@ -1,3 +1,10 @@
+## 2016-07-20 - Release 3.2.2
+
+### Summary
+
+- Support point releases (x.x.x.x) (@spacepants PR #6)
+- Update default version to 5.12.3.1
+
 ## 2016-02-04 - Release 3.2.1
 
 ### Summary

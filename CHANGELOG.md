@@ -1,3 +1,13 @@
+## 2016-11-17 - Release 3.3.0
+
+### Summary
+
+- Optionally provide `bamboo_version` external fact
+- Support stopping service prior to upgrading (resolves #8)
+- Update default version to 5.13.2
+- README - minor typo correction on homedir parameter name in example (@exeral PR #9)
+- metadata: use 'puppet-staging' instead of deprecated 'nanliu-staging'
+
 ## 2016-07-20 - Release 3.2.2
 
 ### Summary

@@ -5,7 +5,7 @@
 # Refer to the README at the root of this module for documentation
 #
 class bamboo (
-  $version            = '5.12.3.1',
+  $version            = '5.13.2',
   $extension          = 'tar.gz',
   $manage_installdir  = true,
   $installdir         = '/usr/local/bamboo',
@@ -40,6 +40,13 @@ class bamboo (
   $service_file       = $bamboo::params::service_file,
   $service_template   = $bamboo::params::service_template,
   $shutdown_wait      = '20',
+  $manage_initconfig  = true,
+  $initconfig_path    = $bamboo::params::initconfig_path,
+  $initconfig_vars    = {},
+  $facts_ensure       = 'present',
+  $facter_dir         = $bamboo::params::facter_dir,
+  $create_facter_dir  = true,
+  $stop_command       = $bamboo::params::stop_command,
 ) inherits bamboo::params {
 
   validate_re($version, ['^\d+\.\d+\.\d+$', '^\d+\.\d+\.\d+\.\d+$'])
@@ -92,6 +99,12 @@ class bamboo (
   else {
     validate_absolute_path($appdir)
     $real_appdir = $appdir
+  }
+
+  validate_re($facts_ensure, '(present|absent)')
+  validate_absolute_path($facter_dir)
+  class { '::bamboo::facts':
+    require => Class['::bamboo::install'],
   }
 
   anchor { 'bamboo::start': } ->

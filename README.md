@@ -65,9 +65,9 @@ The `bamboo` class serves as a single "point of entry" for the module.
 
 ```puppet
 class { 'bamboo':
-  version      => '5.9.7',
+  version      => '5.13.2',
   installdir   => '/opt/bamboo',
-  home         => '/var/local/bamboo',
+  homedir      => '/var/local/bamboo',
   user         => 'bamboo',
   java_home    => '/over/the/rainbow/java',
   download_url => 'https://mirrors.example.com/atlassian/bamboo',
@@ -404,10 +404,46 @@ like.  This should refer to a Puppet module template. E.g.
 
 ##### `shutdown_wait`
 
-Default: '20',
+Default: '20'
 
 Seconds to wait for the Bamboo process to stop. (e.g. service bamboo stop will
 wait this interval before attempting to kill the process and returning).
+
+##### `facts_ensure`
+
+Default: 'present'
+
+Valid values are 'present' or 'absent'
+
+Will provide an _external fact_ called `bamboo_version` with the installed
+Bamboo version.
+
+##### `facter_dir`
+
+Default: See [bamboo::params](manifests/params.pp)
+
+Absolute path to the external facts directory. Refer to
+[https://docs.puppet.com/facter/latest/custom_facts.html#external-facts](https://docs.puppet.com/facter/3.4/custom_facts.html#external-facts)
+
+##### `create_facter_dir`
+
+Default: true
+
+Boolean
+
+Whether this module should ensure the "facts.d" directory for external facts
+is created.  This module uses an `Exec` resource to do that recursively if
+this is true.
+
+##### `stop_command`
+
+Default: `service bamboo stop && sleep 15`
+
+The command to execute prior to upgrading.  This should stop any running
+Bamboo instance.  This is executed _after_ downloading the specified version
+and _before_ extracting it to install it.
+
+This requires the `bamboo_version` fact.
 
 ### Other Classes
 

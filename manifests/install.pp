@@ -15,6 +15,7 @@ class bamboo::install (
   $manage_group       = $bamboo::manage_group,
   $manage_installdir  = $bamboo::manage_installdir,
   $manage_appdir      = $bamboo::manage_appdir,
+  $stop_command       = $bamboo::stop_command,
 ) {
 
   $file    = "atlassian-bamboo-${version}.${extension}"
@@ -68,6 +69,22 @@ class bamboo::install (
   staging::file { $file:
     source  => "${download_url}/${file}",
     timeout => '1800',
+  }
+
+  #
+  # If the 'bamboo_version' fact is defined (as provided by this module),
+  # compare it to the specified version.  If it doesn't match, stop the
+  # bamboo service prior to upgrading but after downloading the new version
+  #
+  if defined('$::bamboo_version') {
+    if versioncmp($::bamboo::version, $::bamboo_version) > 0 {
+      notify { "Updating Bamboo from version ${::bamboo_version} to ${::bamboo::version}": }
+      exec { $stop_command:
+        path    => $::path,
+        require => Staging::File[$file],
+        before  => Staging::Extract[$file],
+      }
+    }
   }
 
   staging::extract { $file:

@@ -23,4 +23,12 @@ class bamboo::params {
     }
   }
 
+  if $::puppet_confdir =~ /^\/etc\/puppetlabs/ {
+    $facter_dir = '/etc/puppetlabs/facter/facts.d'
+  } else {
+    $facter_dir = '/etc/facter/facts.d'
+  }
+
+  $stop_command = 'service bamboo stop && sleep 10'
+
 }

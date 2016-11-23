@@ -23,7 +23,7 @@ class bamboo::params {
     }
   }
 
-  if $::puppet_confdir =~ /^\/etc\/puppetlabs/ {
+  if $::puppet_confdir != undef and $::puppet_confdir =~ /^\/etc\/puppetlabs/ {
     $facter_dir = '/etc/puppetlabs/facter/facts.d'
   } else {
     $facter_dir = '/etc/facter/facts.d'

@@ -46,6 +46,10 @@ This module tries to follow conventions in the
 * nanliu/staging: [http://forge.puppetlabs.com/nanliu/staging](http://forge.puppetlabs.com/nanliu/staging)
 * A Java installation (e.g. via [puppetlabs/java](http://forge.puppetlabs.com/puppetlabs/java))
 
+Consult the [Atlassian Bamboo documentation](https://confluence.atlassian.com/bamboo/bamboo-documentation-home-289276551.html)
+for specific system requirements for your platform and version.  This module
+does not manage a Java installation.
+
 ## Usage
 
 ### Defaults
@@ -444,6 +448,28 @@ Bamboo instance.  This is executed _after_ downloading the specified version
 and _before_ extracting it to install it.
 
 This requires the `bamboo_version` fact.
+
+##### `initconfig_manage`
+
+Default: false
+
+Specifies whether the initconfig file should be managed by this module.
+
+##### `initconfig_path`
+
+Default: `$::osfamily` specific - see [bamboo::params](manifests/params.pp)
+
+Absolute path to the init config file (sysconfig, defaults).  This file is
+sourced by the init script if it exists.
+Defaults to `/etc/sysconfig/bamboo` on Red Hat family systems.
+Defaults to `/etc/default/bamboo` on Debian family systems.
+
+##### `initconfig_content`
+
+Default: '' (empty)
+
+If `initconfig_manage => true`, this string should be the content to populate
+the init config file with.
 
 ### Other Classes
 

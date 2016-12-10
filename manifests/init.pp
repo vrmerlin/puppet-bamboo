@@ -13,11 +13,11 @@ class bamboo (
   $appdir             = undef,
   $homedir            = '/var/local/bamboo',
   $context_path       = '',
-  $tomcat_port        = '8085',
-  $max_threads        = '150',
-  $min_spare_threads  = '25',
-  $connection_timeout = '20000',
-  $accept_count       = '100',
+  $tomcat_port        = 8085,
+  $max_threads        = 150,
+  $min_spare_threads  = 25,
+  $connection_timeout = 20000,
+  $accept_count       = 100,
   $proxy              = {},
   $manage_user        = true,
   $manage_group       = true,
@@ -39,10 +39,10 @@ class bamboo (
   $service_enable     = true,
   $service_file       = $bamboo::params::service_file,
   $service_template   = $bamboo::params::service_template,
-  $shutdown_wait      = '20',
-  $manage_initconfig  = true,
+  $shutdown_wait      = 20,
+  $initconfig_manage  = false,
   $initconfig_path    = $bamboo::params::initconfig_path,
-  $initconfig_vars    = {},
+  $initconfig_content = '',
   $facts_ensure       = 'present',
   $facter_dir         = $bamboo::params::facter_dir,
   $create_facter_dir  = true,
@@ -101,14 +101,18 @@ class bamboo (
     $real_appdir = $appdir
   }
 
+  validate_bool($initconfig_manage)
+  validate_absolute_path($initconfig_path)
+  if !empty($initconfig_content) { validate_string($initconfig_content) }
+
   validate_re($facts_ensure, '(present|absent)')
   validate_absolute_path($facter_dir)
-  class { '::bamboo::facts':
-    require => Class['::bamboo::install'],
-  }
+  validate_bool($create_facter_dir)
+  validate_string($stop_command)
 
   anchor { 'bamboo::start': } ->
   class { 'bamboo::install': } ->
+  class { 'bamboo::facts': } ->
   class { 'bamboo::configure': } ~>
   class { 'bamboo::service': } ->
   anchor { 'bamboo::end': }

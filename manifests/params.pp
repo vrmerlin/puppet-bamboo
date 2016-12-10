@@ -20,7 +20,7 @@ class bamboo::params {
       $initconfig_path  = '/etc/default/bamboo'
       case $::operatingsystem {
         'Ubuntu': {
-          if versioncmp($::operatingsystemmajrelease, '14') >= 0 {
+          if versioncmp($::operatingsystemmajrelease, '16') >= 0 {
             $service_file     = '/lib/systemd/system/bamboo.service'
             $service_template = 'bamboo/bamboo.service.erb'
           }
@@ -30,7 +30,7 @@ class bamboo::params {
           }
         }
         'Debian': {
-          if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
+          if versioncmp($::operatingsystemmajrelease, '8') >= 0 {
             $service_file     = '/lib/systemd/system/bamboo.service'
             $service_template = 'bamboo/bamboo.service.erb'
           }

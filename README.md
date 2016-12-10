@@ -18,7 +18,7 @@
     * [Class: bamboo](#class-bamboo)
     * [Other Classes](#other-classes)
 5. [Limitations](#limitations)
-6. [Development](#development)
+6. [Development and Contributing](#development-and-contributing)
 7. [Authors and Contributors](#authors-and-contributors)
 
 ## Overview
@@ -43,7 +43,7 @@ This module tries to follow conventions in the
 
 ## Prerequisites
 
-* nanliu/staging: [http://forge.puppetlabs.com/nanliu/staging](http://forge.puppetlabs.com/nanliu/staging)
+* puppet/staging: [http://forge.puppetlabs.com/puppet/staging](http://forge.puppetlabs.com/puppet/staging)
 * A Java installation (e.g. via [puppetlabs/java](http://forge.puppetlabs.com/puppetlabs/java))
 
 Consult the [Atlassian Bamboo documentation](https://confluence.atlassian.com/bamboo/bamboo-documentation-home-289276551.html)
@@ -69,7 +69,7 @@ The `bamboo` class serves as a single "point of entry" for the module.
 
 ```puppet
 class { 'bamboo':
-  version      => '5.13.2',
+  version      => '5.14.3.1',
   installdir   => '/opt/bamboo',
   homedir      => '/var/local/bamboo',
   user         => 'bamboo',
@@ -162,7 +162,7 @@ class { 'bamboo':
 
 ##### `version`
 
-Default: '5.9.7'
+Default: '5.14.3.1'
 
 The version of Bamboo to download and install.  Should be in a MAJOR.MINOR.PATH
 format.
@@ -484,12 +484,15 @@ declare these directly.
 
 ### Tested Platforms
 
-* el6.x
-
+* EL 6
+* EL 7
+* Debian 7
+* Debian 8
+* Ubuntu 12.04
+* Ubuntu 14.04
+* Ubuntu 16.04
 * Puppet 3.x
-
-If you've used this module on other platforms, please submit a pull request
-to add it to this list.
+* Puppet 4.x
 
 ### Bamboo Configuration
 
@@ -499,11 +502,11 @@ to be easily managed automatically.  This includes database configuration and
 the license.  Ultimately, this configuration is placed in
 `${homedir}/bamboo-cfg.xml`.  Contributions are welcome to help manage this.
 
-## Development
+## Development and Contributing
 
-Please feel free to raise any issues here for bug fixes. We also welcome
-feature requests. Feel free to make a pull request for anything and we make the
-effort to review and merge. We prefer with tests if possible.
+Please feel free to raise any issues here for bug fixes and feature requests.
+
+Pull requests with passing tests and updated tests are appreciated.
 
 [Travis CI](https://travis-ci.org/joshbeard/puppet-bamboo) is used for testing.
 
@@ -512,6 +515,12 @@ effort to review and merge. We prefer with tests if possible.
 Install the dependencies:
 ```shell
 bundle install
+```
+
+Syntax validation, lint, and spec tests:
+
+```shell
+bundle exec rake test
 ```
 
 Unit tests:
@@ -531,6 +540,16 @@ Puppet Lint:
 ```shell
 bundle exec rake lint
 ```
+
+Acceptance tests:
+
+```shell
+bundle exec rake beaker
+```
+
+You can set the `BAMBOO_DOWNLOAD_URL` and `BAMBOO_VERSION` environment
+variables for setting the corresponding `::bamboo` class parameters for the
+beaker-rspec tests.
 
 
 ## Authors and Contributors

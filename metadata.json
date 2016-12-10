@@ -1,6 +1,6 @@
 {
   "name": "joshbeard-bamboo",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "author": "joshbeard",
   "summary": "Manages the installation of Atlassian Bamboo",
   "license": "Apache-2.0",
@@ -15,22 +15,15 @@
     },
     {
       "name": "puppet-staging",
-      "version_requirement": ">= 1.0.6"
+      "version_requirement": ">= 1.0.6 <3.0.0"
     }
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "Debian",
+      "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "6",
         "7"
-      ]
-    },
-    {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "5",
-        "6"
       ]
     },
     {
@@ -55,10 +48,18 @@
       ]
     },
     {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7",
+        "8"
+      ]
+    },
+    {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "12.04",
-        "14.04"
+        "14.04",
+        "16.04"
       ]
     }
   ]

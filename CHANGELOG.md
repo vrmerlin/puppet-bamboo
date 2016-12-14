@@ -1,3 +1,19 @@
+## 2016-12-13 - Release 3.4.0
+
+### Summary
+
+- Add ability to manage service config (/etc/(sysconfig|default)/bamboo)
+  - Add 3 new parameters: `initconfig_manage`, `initconfig_path`, and
+    `initconfig_content` (@exeral PR #7)
+
+- Support Debian and Ubuntu
+- Fix uknown `puppet_confdir` (resolves #11) (@ssteveli PR #12)
+
+- update default bamboo version to 5.14.3.1
+- metadata: depend on `puppet/staging` instead of `nanliu/staging`
+- testing: add acceptance tests (beaker) (resolves #10)
+- testing: update spec tests (resolves #10)
+
 ## 2016-11-17 - Release 3.3.0
 
 ### Summary

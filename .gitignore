@@ -7,3 +7,6 @@ spec/fixtures
 .bundler
 vendor
 Gemfile.lock
+spec/spec_helper_acceptance_local.rb
+spec/spec_helper_local.rb
+Gemfile.local

@@ -27,4 +27,12 @@ class bamboo::facts (
     mode    => '0444',
   }
 
+  # When using the newer external facts directory, ensure the bamboo facts
+  # under /etc/puppetlabs/facter/facts.d/ are absent.
+  if ($facter_dir == '/opt/puppetlabs/facter/facts.d') {
+    file { '/etc/puppetlabs/facter/facts.d/bamboo_facts.txt':
+      ensure => 'absent',
+    }
+  }
+
 }

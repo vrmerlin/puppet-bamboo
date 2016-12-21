@@ -32,6 +32,12 @@ describe 'bamboo' do
                     :content => /^bamboo_version=5\.14\.3\.1$/,
                   })
                 end
+
+                it do
+                  is_expected.to contain_file('/etc/puppetlabs/facter/facts.d/bamboo_facts.txt').with({
+                    :ensure => 'absent',
+                  })
+                end
               end
             end
 

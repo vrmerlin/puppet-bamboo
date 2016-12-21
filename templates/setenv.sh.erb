@@ -50,6 +50,7 @@ if [ "$BAMBOO_HOME" != "" ]; then
    fi
 fi
 
+<%- if @jvm_permgen -%>
 # Perm Gen size needs to be increased if encountering OutOfMemoryError: PermGen problems. Specifying PermGen size is not valid on IBM JDKs
 BAMBOO_MAX_PERM_SIZE=<%= @jvm_permgen %>
 if [ -f "${PRGDIR}/permgen.sh" ]; then
@@ -62,6 +63,7 @@ if [ -f "${PRGDIR}/permgen.sh" ]; then
         echo "PermGen switch is NOT supported and will NOT be set automatically."
     fi
 fi
+<%- end -%>
 
 JAVA_OPTS="<%= @jvm_opts %> -Xms${JVM_MINIMUM_MEMORY} -Xmx${JVM_MAXIMUM_MEMORY} ${JAVA_OPTS} ${JVM_REQUIRED_ARGS} ${JVM_SUPPORT_RECOMMENDED_ARGS} ${BAMBOO_HOME_MINUSD}"
 JAVA_OPTS=$(echo "$JAVA_OPTS" | sed -e 's/\s*$//' -e 's/^\s*//')

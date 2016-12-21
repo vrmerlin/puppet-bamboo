@@ -30,7 +30,7 @@ class bamboo (
   $java_home          = '/usr/lib/jvm/java',
   $jvm_xms            = '256m',
   $jvm_xmx            = '1024m',
-  $jvm_permgen        = '256m',
+  $jvm_permgen        = undef,
   $jvm_opts           = '',
   $jvm_optional       = '',
   $download_url       = 'https://www.atlassian.com/software/bamboo/downloads/binary',
@@ -76,7 +76,13 @@ class bamboo (
   validate_absolute_path($java_home)
   validate_re($jvm_xms, '\d+(m|g)$')
   validate_re($jvm_xmx, '\d+(m|g)$')
-  validate_re($jvm_permgen, '\d+(m|g)$')
+
+  if $jvm_permgen {
+    if versioncmp($version, '5.10') >= 0 {
+      warning('Bamboo >= 5.10 requires Java 1.8, which obsoletes the -XX:MaxPermSize parameter.')
+    }
+    validate_re($jvm_permgen, '\d+(m|g)$')
+  }
 
   if !empty($jvm_opts) { validate_string($jvm_opts) }
   if !empty($jvm_optional) { validate_string($jvm_optional) }

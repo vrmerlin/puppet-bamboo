@@ -4,6 +4,7 @@
 
 - Fix issue where stale external fact is present, causing an upgrade attempt
   on every run.  (issue #14)
+- Don't set permgen by default
 
 ## 2016-12-13 - Release 3.4.0
 

@@ -1,3 +1,8 @@
+## Unreleased - Pending
+
+- Fix issue where environment variables (HOME) were preserved from the login
+  user (root) and not set to Bamboo's in the service init. (30d12a5)
+
 ## 2016-12-21 - Release 3.4.1
 
 ### Summary

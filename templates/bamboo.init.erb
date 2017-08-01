@@ -41,7 +41,7 @@ function stop() {
   pid=$(bamboo_pid)
   if [ -n "$pid" ]; then
     echo -n $"Stopping down $SERVICE: "
-    /bin/su -s $SHELL -m $USER -c "<%= @appdir %>/bin/stop-bamboo.sh"
+    /bin/su -s $SHELL $USER -c "<%= @appdir %>/bin/stop-bamboo.sh"
 
     echo -n "Waiting ${SHUTDOWN_WAIT} seconds for processes to exit "
     let kwait=$SHUTDOWN_WAIT
@@ -72,7 +72,7 @@ function start() {
     exit 1
   else
     echo -n $"Starting $SERVICE: "
-    /bin/su -s $SHELL -m $USER -c "<%= @appdir %>/bin/start-bamboo.sh"
+    /bin/su -s $SHELL $USER -c "<%= @appdir %>/bin/start-bamboo.sh"
     RETVAL=$?
     echo
     return $RETVAL

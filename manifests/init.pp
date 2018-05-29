@@ -87,7 +87,6 @@ class bamboo (
   if !empty($jvm_opts) { validate_string($jvm_opts) }
   if !empty($jvm_optional) { validate_string($jvm_optional) }
 
-  validate_re($download_url, '^((http?|https?|ftp?|ftps?):\/\/)?([\da-z\.-]+)\.?([a-z\.]{2,6})([\/\w \.-]*)*\/?$')
   validate_bool($manage_service)
   validate_re($service_ensure, '(running|stopped)')
   validate_bool($service_enable)

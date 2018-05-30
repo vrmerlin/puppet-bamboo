@@ -55,7 +55,7 @@ class bamboo::install (
       ensure => 'directory',
       owner  => $user,
       group  => $group,
-      before => Staging::File[$file],
+      before => Archive[$file],
     }
   }
 
@@ -66,9 +66,14 @@ class bamboo::install (
     mode   => '0750',
   }
 
-  staging::file { $file:
+  archive { $file:
+    path    => "/tmp/${file}",
     source  => "${download_url}/${file}",
-    timeout => '1800',
+    extract => true,
+    extract_path => $installdir,
+    creates => "${appdir}/conf",
+    user    => $user,
+    group   => $group,
   }
 
   #
@@ -81,20 +86,11 @@ class bamboo::install (
       notify { "Updating Bamboo from version ${::bamboo_version} to ${::bamboo::version}": }
       exec { $stop_command:
         path    => $::path,
-        require => Staging::File[$file],
-        before  => Staging::Extract[$file],
+        require => Archive[$file],
       }
     }
   }
 
-  staging::extract { $file:
-    target  => $appdir,
-    creates => "${appdir}/conf",
-    strip   => 1,
-    user    => $user,
-    group   => $group,
-    require => Staging::File[$file],
-  }
 
   file { "${homedir}/logs":
     ensure => 'directory',
